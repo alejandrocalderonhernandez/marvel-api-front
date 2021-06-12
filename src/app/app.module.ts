@@ -12,6 +12,7 @@ import { EventsModule } from './events/events.module';
 import { SeriesModule } from './series/series.module';
 import { NavbarComponent } from './shared/components/footer/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     CardsModule,
     CharactersModule,
     ComicsModule,

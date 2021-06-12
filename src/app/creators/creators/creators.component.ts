@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CreatorsService } from '../creators.service';
 
 @Component({
   selector: 'app-creators',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatorsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: CreatorsService) { }
 
   ngOnInit(): void {
+    this.service.findByPage(40, 20).subscribe(r => console.log(r));
   }
 
 }
