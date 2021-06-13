@@ -1,9 +1,7 @@
 <div class="container">
-    <div class="row">
-        <div class="col-lg-3 col-md-4">.col-6 .col-sm-3</div>
-        <div class="col-lg-3 col-md-4">.col-6 .col-sm-3</div>  
-        <div class="col-lg-3 col-md-4">.col-6 .col-sm-3</div>
-        <div class="col-lg-3 col-md-4">.col-6 .col-sm-3</div>
-        <div class="col-lg-3 col-md-4">.col-6 .col-sm-3</div>
-    </div>
+  <div class="row">
+     <div class="col-lg-3 col-md-4" *ngFor="let item of items">
+        <app-card [item]="item"></app-card>
+     </div>
+  </div>
 </div>

@@ -11,7 +11,6 @@ import { CardsModule } from '../cards/cards.module';
     ComicsComponent
   ],
   imports: [
-    //RouterModule.forChild(pokeroutes),
     CommonModule,
     ComicsRoutingModule,
     CardsModule

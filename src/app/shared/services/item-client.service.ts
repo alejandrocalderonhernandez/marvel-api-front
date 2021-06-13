@@ -42,11 +42,21 @@ export abstract class ItemClientService {
   }
 
   private buildItems(data: any[]): Item[] {
-   // data.forEach(d => console.log(d))
     let items = new Array<Item>();
     data.forEach(d => {
-      items.push(new Item(d.id, d.tittle, d.description, 'img', d.start, d.end));
+      items.push(
+        new Item(
+          d.id, 
+          d.title, 
+          d.description, 
+          this.buildImg(d.thumbnail)));
     })
     return items;
+  }
+
+  private buildImg(thumbnail: any): string {
+    const url = thumbnail.path;
+    const extension = thumbnail.extension;
+    return `${url}.${extension}`;
   }
 }

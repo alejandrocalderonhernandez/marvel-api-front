@@ -10,9 +10,9 @@ import { ComicsModule } from './comics/comics.module';
 import { CreatorsModule } from './creators/creators.module';
 import { EventsModule } from './events/events.module';
 import { SeriesModule } from './series/series.module';
-import { NavbarComponent } from './shared/components/footer/navbar/navbar.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
