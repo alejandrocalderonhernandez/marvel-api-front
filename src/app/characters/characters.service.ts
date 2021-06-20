@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ItemClientService } from '../shared/services/item-client.service';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Response } from '../shared/models/response.model';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Item } from '../shared/models/item.model';
+import { Response } from '../shared/models/response.model';
+import { ItemClientService } from '../shared/services/item-client.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CreatorsService extends ItemClientService{
+export class CharactersService extends ItemClientService {
 
-  constructor(protected client: HttpClient) {
-    super(client, 'creators')
+  constructor(client: HttpClient) {
+    super(client, 'characters');
    }
 
    public findByPage(offset: number, limit: number): Observable<Response> {
@@ -30,19 +30,19 @@ export class CreatorsService extends ItemClientService{
           response.data.offset,
           response.data.limit,
           response.data.total,
-          this.buildCreator(response.data.results)
+          this.buildCharacter(response.data.results)
         );
     }));
   }
 
-  private buildCreator(data: any[]): Item[] {
+  private buildCharacter(data: any[]): Item[] {
     let items = new Array<Item>();
     data.forEach(d => {
       items.push(
         new Item(
           d.id, 
-          d.firstName, 
-          d.fullName, 
+          d.name, 
+          d.description, 
           this.buildImg(d.thumbnail)));
     })
     return items;

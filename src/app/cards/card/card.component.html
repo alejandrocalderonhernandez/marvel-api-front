@@ -1,11 +1,14 @@
-<div class="card" style="width: 18rem;">
+<div class="card" >
+  <div class="img-wrapper">
     <img class="card-img-top" [src]="item.img" alt="Card image cap">
+  </div>
     <div class="card-body">
-      <h5 class="card-title">{{item.title}}</h5>
+      <div class="tittle-container">
+        <h5 class="card-title">{{item.title}}</h5>
+      </div>
       <div class="text-decription">
         <p class="card-text">{{item.description}}</p>
       </div>
-     
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
 </div>

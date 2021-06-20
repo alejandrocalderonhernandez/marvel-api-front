@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { of } from 'rxjs';
 import { Item } from 'src/app/shared/models/item.model';
 
 @Component({
@@ -11,8 +12,11 @@ export class CardComponent implements OnInit {
   @Input() 
   public item!: Item;
 
-  constructor() {}
 
-  ngOnInit(): void {}
+  constructor() {
+  }
+
+  ngOnInit(): void {
+  }
 
 }

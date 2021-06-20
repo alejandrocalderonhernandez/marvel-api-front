@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Response } from 'src/app/shared/models/response.model';
+import { SeriesService } from '../series.service';
 
 @Component({
   selector: 'app-series',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeriesComponent implements OnInit {
 
-  constructor() { }
+  response!: Response;
+
+  constructor(private service: SeriesService) { }
 
   ngOnInit(): void {
+    this.service.findByPage(40, 20).subscribe(r => { 
+      this.response = r;
+   });
   }
 
 }

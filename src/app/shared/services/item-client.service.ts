@@ -7,11 +7,11 @@ import { Response } from '../models/response.model';
 
 export abstract class ItemClientService {
 
-  private timestampParamName: string;
-  private apikeyParamName: string;
-  private hashParamName: string;
-  private offsetParamName: string;
-  private limitParamName: string;
+  protected timestampParamName: string;
+  protected apikeyParamName: string;
+  protected hashParamName: string;
+  protected offsetParamName: string;
+  protected limitParamName: string;
 
 
   constructor(protected client: HttpClient, protected resource: string) { 
@@ -41,7 +41,7 @@ export abstract class ItemClientService {
     }));
   }
 
-  private buildItems(data: any[]): Item[] {
+  protected buildItems(data: any[]): Item[] {
     let items = new Array<Item>();
     data.forEach(d => {
       items.push(
@@ -54,7 +54,7 @@ export abstract class ItemClientService {
     return items;
   }
 
-  private buildImg(thumbnail: any): string {
+  protected buildImg(thumbnail: any): string {
     const url = thumbnail.path;
     const extension = thumbnail.extension;
     return `${url}.${extension}`;

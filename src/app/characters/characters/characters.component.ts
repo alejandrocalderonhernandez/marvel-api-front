@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Response } from 'src/app/shared/models/response.model';
+import { CharactersService } from '../characters.service';
 
 @Component({
   selector: 'app-characters',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CharactersComponent implements OnInit {
 
-  constructor() { }
+  response!: Response;
+
+  constructor(private service: CharactersService) { }
 
   ngOnInit(): void {
+    this.service.findByPage(40, 20).subscribe(r => { 
+      this.response = r;
+   });
   }
 
 }

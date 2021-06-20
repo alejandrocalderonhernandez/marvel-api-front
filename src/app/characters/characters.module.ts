@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CharactersRoutingModule } from './characters-routing.module';
 import { CharactersComponent } from './characters/characters.component';
+import { CardsModule } from '../cards/cards.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { CharactersComponent } from './characters/characters.component';
   ],
   imports: [
     CommonModule,
-    CharactersRoutingModule
+    CharactersRoutingModule,
+    CardsModule
   ]
 })
 export class CharactersModule { }
