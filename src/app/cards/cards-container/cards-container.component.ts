@@ -11,6 +11,9 @@ export class CardsContainerComponent implements OnInit {
   @Input() 
   items!: Array<Item>;
 
+  @Input()
+  showDescription?: boolean
+
   constructor() {
    }
 

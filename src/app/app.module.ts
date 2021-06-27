@@ -11,20 +11,18 @@ import { CreatorsModule } from './creators/creators.module';
 import { EventsModule } from './events/events.module';
 import { SeriesModule } from './series/series.module';
 import { HttpClientModule } from '@angular/common/http';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    FooterComponent,
     SearchMenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    SharedModule,
     CardsModule,
     CharactersModule,
     ComicsModule,

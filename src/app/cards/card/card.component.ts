@@ -9,6 +9,9 @@ import { Item } from 'src/app/shared/models/item.model';
 })
 export class CardComponent implements OnInit {
 
+  @Input()
+  showDescription?: boolean
+
   @Input() 
   public item!: Item;
 

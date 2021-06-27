@@ -10,8 +10,11 @@ import { SeriesService } from '../series.service';
 export class SeriesComponent implements OnInit {
 
   response!: Response;
-
-  constructor(private service: SeriesService) { }
+  showDescription: boolean;
+  
+  constructor(private service: SeriesService) {
+    this.showDescription = true;
+  }
 
   ngOnInit(): void {
     this.service.findByPage(40, 20).subscribe(r => { 

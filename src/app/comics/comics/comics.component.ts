@@ -10,8 +10,11 @@ import { ComicsService } from '../comics.service';
 export class ComicsComponent implements OnInit {
 
   response!: Response;
+  showDescription: boolean;
 
-  constructor(private service: ComicsService) {}
+  constructor(private service: ComicsService) {
+    this.showDescription = true;
+  }
 
   ngOnInit(): void {
     this.service.findByPage(40, 20).subscribe(r => { 

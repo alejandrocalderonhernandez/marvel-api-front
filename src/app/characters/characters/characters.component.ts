@@ -10,8 +10,11 @@ import { CharactersService } from '../characters.service';
 export class CharactersComponent implements OnInit {
 
   response!: Response;
+  showDescription: boolean;
 
-  constructor(private service: CharactersService) { }
+  constructor(private service: CharactersService) {
+    this.showDescription = true;
+   }
 
   ngOnInit(): void {
     this.service.findByPage(40, 20).subscribe(r => { 

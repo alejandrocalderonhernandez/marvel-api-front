@@ -10,8 +10,11 @@ import { EventsService } from '../events.service';
 export class EventsComponent implements OnInit {
 
   response!: Response;
+  showDescription: boolean;
 
-  constructor(private service: EventsService) { }
+  constructor(private service: EventsService) {
+    this.showDescription = true;
+   }
 
   ngOnInit(): void {
     this.service.findByPage(40, 20).subscribe(r => { 
