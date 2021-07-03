@@ -1,23 +1,36 @@
 <div >
   <div class="paginator-container">
       <ul class="pagination">
-        <li class="page-item disabled">
-          <a class="page-link">
-            <fa-icon [icon]="left"></fa-icon>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active">
-          <span class="page-link">
-            2
-          </span>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
         <li class="page-item">
-          <a class="page-link">
+          <button class="page-link" (click)="paginate('previus')">
+            <fa-icon [icon]="first"></fa-icon>
+          </button>
+        </li>
+        <li class="page-item">
+          <button class="page-link" [disabled]="disabledFirst" (click)="paginate('previus')">
+            <fa-icon [icon]="left"></fa-icon>
+          </button>
+        </li>
+        <div *ngFor="let index of indices; let i=index">
+          <li class="page-item"><button class="page-link">{{index}}</button></li>
+        </div>
+       
+        <li class="page-item">
+          <button class="page-link" (click)="paginate('next')">
             <fa-icon [icon]="right"></fa-icon>
-          </a>
+          </button>
+        </li>
+        <li class="page-item">
+          <button class="page-link" (click)="paginate('previus')">
+            <fa-icon [icon]="last"></fa-icon>
+          </button>
         </li>
       </ul>
   </div>
 </div>
+
+<!-- <li class="page-item active">
+  <span class="page-link">
+    2
+  </span>
+</li> -->

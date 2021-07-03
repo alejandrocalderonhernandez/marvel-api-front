@@ -13,7 +13,7 @@ export class CardComponent implements OnInit {
   showDescription?: boolean
 
   @Input() 
-  public item!: Item;
+  public item!: Item
 
 
   constructor() {

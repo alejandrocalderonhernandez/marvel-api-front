@@ -11,17 +11,16 @@ import { CreatorsService } from '../creators.service';
 })
 export class CreatorsComponent implements OnInit {
 
-  response!: Response;
-  showDescription: boolean;
+  response!: Response
+  showDescription: boolean
 
   constructor(private service: CreatorsService) { 
-    this.showDescription = false;
+    this.showDescription = false
   }
 
   ngOnInit(): void {
     this.service.findByPage(40, 20).subscribe(r => { 
-        this.response = r;
-        console.log(r)
+        this.response = r
      });
   }
 

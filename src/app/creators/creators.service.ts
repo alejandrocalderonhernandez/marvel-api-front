@@ -24,6 +24,7 @@ export class CreatorsService extends ItemClientService{
       .set(this.hashParamName, environment.hash)
       .set(this.offsetParamName, offset.toString())
       .set(this.limitParamName, limit.toString())
+      console.log(uri)
     return this.client.get(uri, {params}).pipe(map((response: any) => {
         return new Response(
           response.status, 
