@@ -4,6 +4,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 
@@ -11,7 +12,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [
     NavbarComponent,
     FooterComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   exports: [
     NavbarComponent,
     FooterComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule { }

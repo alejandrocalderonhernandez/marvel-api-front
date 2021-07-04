@@ -1,4 +1,7 @@
-<app-cards-container [showDescription]="showDescription" [items]="response.items"></app-cards-container>
+<app-cards-container [showDescription]="showDescription" 
+                     [items]="response.items"
+                     [isLoading]="isLoading">
+</app-cards-container>
 <app-paginator (page)="setNextPage($event)" 
                [totalItems]="totalItems">
 </app-paginator>

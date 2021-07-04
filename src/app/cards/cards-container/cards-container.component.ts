@@ -9,12 +9,16 @@ import { Item } from 'src/app/shared/models/item.model';
 export class CardsContainerComponent implements OnInit {
 
   @Input() 
-  items!: Array<Item>;
+  items!: Array<Item>
+
+  @Input() 
+  isLoading: boolean
 
   @Input()
   showDescription?: boolean
 
   constructor() {
+    this.isLoading = true;
    }
 
   ngOnInit(): void {}

@@ -10,12 +10,14 @@ import { CharactersService } from '../characters.service';
 })
 export class CharactersComponent implements OnInit {
 
+  isLoading: boolean
   response!: Response
   showDescription: boolean
   startPage: number
   totalItems: number
 
   constructor(private service: CharactersService) {
+    this.isLoading = true
     this.showDescription = true
     this.totalItems = 0
     this.startPage = 0
@@ -30,11 +32,13 @@ export class CharactersComponent implements OnInit {
   }
 
   private getItems(offset: number): void {
+    this.isLoading = true
     this.service.findByPage(offset, environment.itemsPerPage).subscribe(r => { 
       this.response = r
       if(this.totalItems === 0) {
         this.totalItems = r.total
       }
+      setTimeout(() => { this.isLoading = false; }, 1000);
    });
   }
 }

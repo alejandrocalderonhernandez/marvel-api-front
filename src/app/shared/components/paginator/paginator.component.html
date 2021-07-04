@@ -2,26 +2,43 @@
   <div class="paginator-container">
       <ul class="pagination">
         <li class="page-item">
-          <button class="page-link" (click)="paginate('previus')">
+          <button class="page-link" (click)="setFirstPage()">
             <fa-icon [icon]="first"></fa-icon>
           </button>
         </li>
         <li class="page-item">
-          <button class="page-link" [disabled]="disabledFirst" (click)="paginate('previus')">
-            <fa-icon [icon]="left"></fa-icon>
-          </button>
+          <div>
+            <button *ngIf="!disabledFirst" class="page-link" [disabled]="disabledFirst" (click)="paginate('previus')">
+              <fa-icon [icon]="left"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="disabledFirst">
+            <button class="page-link" [disabled]="disabledFirst">
+              <fa-icon [icon]="ban"></fa-icon>
+            </button>
+          </div>
         </li>
-        <div *ngFor="let index of indices; let i=index">
-          <li class="page-item"><button class="page-link">{{index}}</button></li>
+        <div *ngFor="let index of indices">
+          <li class="page-item" [ngClass]="{'active': index == currentPage}">
+            <button class="page-link" 
+                   (click)="setPageByIndex(index)">{{index + 1}}
+            </button>
+          </li>
         </div>
-       
         <li class="page-item">
-          <button class="page-link" (click)="paginate('next')">
-            <fa-icon [icon]="right"></fa-icon>
-          </button>
+          <div *ngIf="!disabledLast">
+            <button class="page-link" (click)="paginate('next')" [disabled]="disabledLast">
+              <fa-icon [icon]="right"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="disabledLast">
+            <button class="page-link" [disabled]="disabledFirst">
+              <fa-icon [icon]="ban"></fa-icon>
+            </button>
+          </div>
         </li>
         <li class="page-item">
-          <button class="page-link" (click)="paginate('previus')">
+          <button class="page-link" (click)="setLastPage()">
             <fa-icon [icon]="last"></fa-icon>
           </button>
         </li>
@@ -29,8 +46,3 @@
   </div>
 </div>
 
-<!-- <li class="page-item active">
-  <span class="page-link">
-    2
-  </span>
-</li> -->
