@@ -5,7 +5,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoadingComponent } from './components/loading/loading.component';
-
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -13,17 +13,19 @@ import { LoadingComponent } from './components/loading/loading.component';
     NavbarComponent,
     FooterComponent,
     PaginatorComponent,
-    LoadingComponent
+    LoadingComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   exports: [
     NavbarComponent,
     FooterComponent,
     PaginatorComponent,
-    LoadingComponent
+    LoadingComponent,
+    SearchComponent
   ]
 })
 export class SharedModule { }

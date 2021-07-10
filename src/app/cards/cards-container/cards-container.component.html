@@ -1,11 +1,22 @@
 <div class="container" *ngIf="!isLoading">
+   <div *ngIf="showToggle">
+      <app-search></app-search>
+   </div>
+
+   <div *ngIf="!showToggle">
+      <div class="toggle-button">
+         <button type="button" class="btn btn-success" (click)="toggle()"> 
+            <fa-icon [icon]="searchIcon"></fa-icon>
+         </button>
+      </div>
+   </div>
+
   <div class="row">
      <div class="col-lg-3 col-md-4" *ngFor="let item of items">
         <app-card [showDescription]="showDescription" [item]="item"></app-card>
      </div>
   </div>
 </div>
-<pre>{{isLoading}}</pre>
 <div *ngIf="isLoading">
    <app-loading></app-loading>
 </div>
