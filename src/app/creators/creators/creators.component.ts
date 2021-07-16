@@ -1,7 +1,7 @@
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
+
 import { Component, OnInit } from '@angular/core';
-import { Item } from 'src/app/shared/models/item.model';
 import { Response } from 'src/app/shared/models/response.model';
+import { environment } from 'src/environments/environment';
 import { CreatorsService } from '../creators.service';
 
 @Component({
@@ -11,17 +11,36 @@ import { CreatorsService } from '../creators.service';
 })
 export class CreatorsComponent implements OnInit {
 
+  isLoading: boolean
   response!: Response
   showDescription: boolean
+  startPage: number
+  totalItems: number
 
-  constructor(private service: CreatorsService) { 
+  constructor(private service: CreatorsService) {
+    this.isLoading = true
     this.showDescription = false
-  }
+    this.totalItems = 0
+    this.startPage = 0
+   }
 
   ngOnInit(): void {
-    this.service.findByPage(40, 20).subscribe(r => { 
-        this.response = r
-     });
+   this.getItems(this.startPage)
+  }
+
+  setNextPage(page: any): void {   
+    this.getItems(page) 
+  }
+
+  private getItems(offset: number): void {
+    this.isLoading = true
+    this.service.findByPage(offset, environment.itemsPerPage).subscribe(r => { 
+      this.response = r
+      if(this.totalItems === 0) {
+        this.totalItems = r.total
+      }
+      setTimeout(() => { this.isLoading = false; }, 500);
+   });
   }
 
 }

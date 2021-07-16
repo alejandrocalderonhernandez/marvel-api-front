@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SeriesRoutingModule } from './series-routing.module';
 import { SeriesComponent } from './series/series.component';
 import { CardsModule } from '../cards/cards.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { CardsModule } from '../cards/cards.module';
   imports: [
     CommonModule,
     SeriesRoutingModule,
-    CardsModule
+    CardsModule,
+    SharedModule
   ]
 })
 export class SeriesModule { }

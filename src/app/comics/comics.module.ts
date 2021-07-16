@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ComicsRoutingModule } from './comics-routing.module';
 import { ComicsComponent } from './comics/comics.component';
 import { CardsModule } from '../cards/cards.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { CardsModule } from '../cards/cards.module';
   imports: [
     CommonModule,
     ComicsRoutingModule,
-    CardsModule
+    CardsModule,
+    SharedModule
   ]
 })
 export class ComicsModule { }
