@@ -1,10 +1,10 @@
 <div class="container" *ngIf="!isLoading">
    <div *ngIf="showToggle">
-      <app-search></app-search>
+      <app-search (close)="toggle()"></app-search>
    </div>
 
    <div *ngIf="!showToggle">
-      <div class="toggle-button">
+      <div class="toggle-button mt-2">
          <button type="button" class="btn btn-success" (click)="toggle()"> 
             <fa-icon [icon]="searchIcon"></fa-icon>
          </button>

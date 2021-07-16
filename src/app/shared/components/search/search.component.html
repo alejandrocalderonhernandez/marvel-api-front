@@ -1,4 +1,10 @@
-<div class="center-container mt-2 search-color animate__animated animate__fadeInLeft">
+<div class="close-button">
+  <button class="btn btn-danger" (click)=closeComponent()>
+    <fa-icon [icon]="closeIcon"></fa-icon>
+  </button>
+</div>
+<div [ngClass]="{'animate__animated animate__backOutLeft': !keepOpen}">
+  <div class="center-container mt-2 search-color animate__animated animate__fadeInLeft" >
     <form>
         <div class="form-group">
           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search by id">
@@ -15,4 +21,6 @@
         </div>
        
       </form>
+</div>
+
 </div>

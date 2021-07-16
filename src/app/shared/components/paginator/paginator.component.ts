@@ -64,8 +64,6 @@ export class PaginatorComponent implements OnInit {
       this.decrementIndices()
     }
     
-    console.log('this.currentPage' + this.currentPage) 
-    console.log('this.lastPage' + (this.lastPage - 1)) 
     if(this.currentPage > 0) {
       this.disabledFirst = false
     } else if (this.currentPage === 0) {

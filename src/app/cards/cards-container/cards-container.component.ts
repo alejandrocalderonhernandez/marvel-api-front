@@ -30,7 +30,11 @@ export class CardsContainerComponent implements OnInit {
   ngOnInit(): void {}
 
   toggle() {
-    this.showToggle = !this.showToggle;
+    if(this.showToggle) {
+      setTimeout(() => this.showToggle = !this.showToggle, 500)
+    } else {
+      this.showToggle = !this.showToggle
+    }
   }
 
 }
