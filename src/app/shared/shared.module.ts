@@ -6,6 +6,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoadingComponent } from './components/loading/loading.component';
 import { SearchComponent } from './components/search/search.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SearchComponent } from './components/search/search.component';
   imports: [
     CommonModule,
     FontAwesomeModule,
+    FormsModule
   ],
   exports: [
     NavbarComponent,

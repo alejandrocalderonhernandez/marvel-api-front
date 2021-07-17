@@ -12,6 +12,7 @@ import { EventsModule } from './events/events.module';
 import { SeriesModule } from './series/series.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     SharedModule,
     CardsModule,
     CharactersModule,
