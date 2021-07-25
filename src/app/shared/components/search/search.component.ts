@@ -11,7 +11,10 @@ import { ItemType, Search } from '../../models/search.model';
 export class SearchComponent {
 
   @Output()
-  close = new EventEmitter<void>()
+  close: EventEmitter<void>
+
+  @Output()
+  searchEmitter: EventEmitter<Search>
 
   keepOpen: boolean
   closeIcon: IconDefinition
@@ -19,6 +22,8 @@ export class SearchComponent {
   itemTypes: Array<string> 
 
   constructor() { 
+    this.close = new EventEmitter()
+    this.searchEmitter = new EventEmitter()
     this.keepOpen = true
     this.closeIcon = faTimes
     this.itemTypes = new Array()
@@ -32,7 +37,7 @@ export class SearchComponent {
   }
 
   search(): void {
-    console.log(this.searchModel)
+    this.searchEmitter.emit(this.searchModel)
   }
 
   private getItemsTypes(): void {

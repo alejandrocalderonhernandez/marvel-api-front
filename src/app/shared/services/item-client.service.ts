@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Item } from '../models/item.model';
 import { Response } from '../models/response.model';
+import { Search } from '../models/search.model';
 
 export abstract class ItemClientService {
 
@@ -39,6 +40,25 @@ export abstract class ItemClientService {
           this.buildItems(response.data.results)
         );
     }));
+  }
+
+  public findByPageAndItem(offset: number, limit: number, searchModel: Search): Observable<Response> {
+    const uri = `${environment.baseUrl}${searchModel.itemType}/${searchModel.id}/${this.resource}`;
+    const params = new HttpParams()
+      .set(this.timestampParamName, environment.ts)
+      .set(this.apikeyParamName, environment.publicApiKey)
+      .set(this.hashParamName, environment.hash)
+      .set(this.offsetParamName, offset.toString())
+      .set(this.limitParamName, limit.toString())
+    return this.client.get(uri, {params}).pipe(map((response: any) => {
+        return new Response(
+          response.status, 
+          response.data.offset,
+          response.data.limit,
+          response.data.total,
+          this.buildItems(response.data.results)
+        );
+     }));
   }
 
   protected buildItems(data: any[]): Item[] {

@@ -1,6 +1,7 @@
 <app-cards-container [showDescription]="showDescription" 
                      [items]="response.items"
-                     [isLoading]="isLoading">
+                     [isLoading]="isLoading"
+                     (searchEmitter)="filter($event)">
 </app-cards-container>
 <app-paginator (page)="setNextPage($event)" 
                [totalItems]="totalItems">

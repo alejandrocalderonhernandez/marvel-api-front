@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Response } from 'src/app/shared/models/response.model';
 import { environment } from 'src/environments/environment';
 import { CharactersService } from '../characters.service';
@@ -16,7 +17,9 @@ export class CharactersComponent implements OnInit {
   startPage: number
   totalItems: number
 
-  constructor(private service: CharactersService) {
+  constructor(private service: CharactersService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.isLoading = true
     this.showDescription = true
     this.totalItems = 0
@@ -31,14 +34,18 @@ export class CharactersComponent implements OnInit {
     this.getItems(page) 
   }
 
-  private getItems(offset: number): void {
+  filter(event: any) {
+    this.router.navigate([event.itemType, event.id, 'characters'])
+  }
+
+  private getItems(offset: number, id?:number, item?: string): void {
     this.isLoading = true
-    this.service.findByPage(offset, environment.itemsPerPage).subscribe(r => { 
-      this.response = r
-      if(this.totalItems === 0) {
-        this.totalItems = r.total
-      }
-      setTimeout(() => { this.isLoading = false; }, 1000);
-   });
+      this.service.findByPage(offset, environment.itemsPerPage).subscribe(r => { 
+        this.response = r
+        if(this.totalItems === 0) {
+          this.totalItems = r.total
+        }
+        setTimeout(() => { this.isLoading = false; }, 1000);
+     });
   }
 }

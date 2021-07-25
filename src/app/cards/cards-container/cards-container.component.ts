@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Item } from 'src/app/shared/models/item.model';
+import { Search } from 'src/app/shared/models/search.model';
 
 @Component({
   selector: 'app-cards-container',
@@ -18,13 +19,19 @@ export class CardsContainerComponent implements OnInit {
   @Input()
   showDescription?: boolean
 
+  @Output()
+  searchEmitter: EventEmitter<Search>;
+
   searchIcon: IconDefinition
   showToggle:boolean;
+  searchModel: Search
 
   constructor() {
     this.isLoading = true
     this.searchIcon = faSearch
     this.showToggle = false
+    this.searchModel = new Search()
+    this.searchEmitter = new EventEmitter();
    }
 
   ngOnInit(): void {}
@@ -37,4 +44,9 @@ export class CardsContainerComponent implements OnInit {
     }
   }
 
+  emitSearch(event: any): void {
+    this.searchModel.id = event.id
+    this.searchModel.itemType = event.itemType
+    this.searchEmitter.emit(this.searchModel)
+  }
 }

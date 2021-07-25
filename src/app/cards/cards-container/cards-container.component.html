@@ -1,6 +1,6 @@
 <div class="container" *ngIf="!isLoading">
    <div *ngIf="showToggle">
-      <app-search (close)="toggle()"></app-search>
+      <app-search (searchEmitter)="emitSearch($event)" (close)="toggle()"></app-search>
    </div>
 
    <div *ngIf="!showToggle">

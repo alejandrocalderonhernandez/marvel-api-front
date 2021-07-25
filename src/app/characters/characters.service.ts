@@ -17,7 +17,7 @@ export class CharactersService extends ItemClientService {
    }
 
    public findByPage(offset: number, limit: number): Observable<Response> {
-    const uri = `${environment.baseUrl}${this.resource}`;
+    const uri = `${environment.baseUrl}${this.resource}`
     const params = new HttpParams()
       .set(this.timestampParamName, environment.ts)
       .set(this.apikeyParamName, environment.publicApiKey)
