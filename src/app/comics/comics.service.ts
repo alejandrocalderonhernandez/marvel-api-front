@@ -10,6 +10,9 @@ export class ComicsService extends ItemClientService {
   constructor (client: HttpClient) {
     super(client, 'comics');
   }
-
+ 
+  public getItemTypeName(): string {
+    return'comics'
+  }
 }
 

@@ -10,5 +10,8 @@ export class EventsService extends ItemClientService {
   constructor(client: HttpClient) {
     super(client, 'events');
    }
-   
+  
+   public getItemTypeName(): string {
+    return'events'
+  }
 }

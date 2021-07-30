@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Response } from 'src/app/shared/models/response.model';
 import { Search } from 'src/app/shared/models/search.model';
 import { environment } from 'src/environments/environment';
@@ -18,33 +18,44 @@ export class ComicsComponent implements OnInit {
   startPage: number
   totalItems: number
   searchModel: Search
+  filtered: boolean
 
   constructor(private service: ComicsService,
+    private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.isLoading = true
     this.showDescription = true
+    this.filtered = false
     this.totalItems = 0
     this.startPage = 0
     this.searchModel = new Search();
-  }
+  } 
 
   ngOnInit(): void {
     this.searchModel.id = this.activatedRoute.snapshot.params.id;
     this.searchModel.itemType = this.activatedRoute.snapshot.params.itemType;
     if(this.searchModel.id !== undefined) {
       this.getItemsFiltered(this.startPage, this.searchModel)
+      this.filtered = true
     } else {
       this.getItems(this.startPage)
     }
   }
 
-  setNextPage(page: any): void {   
-    this.getItems(page) 
+  setNextPage(page: any): void {
+    if(this.searchModel.id !== undefined) {
+      this.getItemsFiltered(page, this.searchModel)
+    } else {
+      this.getItems(page) 
+    }
+
   }
 
   filter(event: any) {
-    //this.router.navigate([event.itemType, event.id, 'characters'])
+    this.router.navigate([event.itemType, event.id, this.service.getItemTypeName()])
   }
+
+
   private getItems(offset: number): void {
     this.isLoading = true
     this.service.findByPage(offset, environment.itemsPerPage).subscribe(r => { 
@@ -58,11 +69,9 @@ export class ComicsComponent implements OnInit {
 
   private getItemsFiltered(offset: number, searchModel: Search): void {
     this.isLoading = true
-    this.service.findByPageAndItem(offset, environment.itemsPerPage, searchModel).subscribe(r => { 
+    this.service.findByPageAndItem(offset, environment.itemsPerFilter, searchModel).subscribe(r => { 
       this.response = r
-      if(this.totalItems === 0) {
-        this.totalItems = r.total
-      }
+      this.totalItems = r.total
       setTimeout(() => { this.isLoading = false; }, 500);
    });
   }

@@ -7,7 +7,7 @@ import { Item } from '../shared/models/item.model';
 import { Response } from '../shared/models/response.model';
 import { ItemClientService } from '../shared/services/item-client.service';
 
-@Injectable({
+@Injectable({ 
   providedIn: 'root'
 })
 export class CharactersService extends ItemClientService {
@@ -46,5 +46,9 @@ export class CharactersService extends ItemClientService {
           this.buildImg(d.thumbnail)));
     })
     return items;
+  }
+
+  public getItemTypeName(): string {
+    return'characters'
   }
 }

@@ -3,6 +3,7 @@
                      [isLoading]="isLoading"
                      (searchEmitter)="filter($event)">
 </app-cards-container>
-<app-paginator (page)="setNextPage($event)" 
+<app-paginator *ngIf="!filtered"
+               (page)="setNextPage($event)" 
                [totalItems]="totalItems">
 </app-paginator>

@@ -79,4 +79,7 @@ export abstract class ItemClientService {
     const extension = thumbnail.extension;
     return `${url}.${extension}`;
   }
+
+  public abstract getItemTypeName() : string
+  
 }

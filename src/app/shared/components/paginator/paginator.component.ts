@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PaginatorComponent implements OnInit {
 
+  //cahnge by destrucuturing
   left: IconDefinition
   right: IconDefinition
   first: IconDefinition
