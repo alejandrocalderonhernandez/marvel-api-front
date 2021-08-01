@@ -10,6 +10,9 @@ import { Item } from 'src/app/shared/models/item.model';
 export class CardComponent implements OnInit {
 
   @Input()
+  cardStyle: string
+
+  @Input()
   showDescription?: boolean
 
   @Input() 
@@ -17,6 +20,7 @@ export class CardComponent implements OnInit {
 
 
   constructor() {
+    this.cardStyle = 'default-color'
   }
 
   ngOnInit(): void {
