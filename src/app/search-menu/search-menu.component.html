@@ -8,7 +8,7 @@
                     <hr> <br>
                     <div *ngFor="let option of menu">
                         <div class="row">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="navigate(option)">{{option}}</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-dark" (click)="navigate(option)">{{option}}</button>
                         </div>
                         <br>
                     </div>
@@ -17,7 +17,9 @@
             </div>
            <!--Rigth column-->
             <div class="col-5">
-                <div class="right-container"></div>
+                <div class="right-container">
+                    <img src="../../assets/img/menu.jpg" alt="MDN">
+                </div>
             </div>
          
         </div>
