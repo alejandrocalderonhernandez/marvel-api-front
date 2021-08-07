@@ -20,7 +20,7 @@ export class CardComponent implements OnInit {
 
 
   constructor() {
-    this.cardStyle = 'default-color'
+    this.cardStyle = 'default'
   }
 
   ngOnInit(): void {

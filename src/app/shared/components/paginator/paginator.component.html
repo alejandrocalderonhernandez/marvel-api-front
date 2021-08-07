@@ -2,43 +2,43 @@
   <div class="center-container">
       <ul class="pagination">
         <li class="page-item">
-          <button class="page-link" (click)="setFirstPage()">
+          <button class="page-link bg-paginator" (click)="setFirstPage()">
             <fa-icon [icon]="first"></fa-icon>
           </button>
         </li>
         <li class="page-item">
           <div>
-            <button *ngIf="!disabledFirst" class="page-link" [disabled]="disabledFirst" (click)="paginate('previus')">
+            <button *ngIf="!disabledFirst" class="page-link bg-paginator" [disabled]="disabledFirst" (click)="paginate('previus')">
               <fa-icon [icon]="left"></fa-icon>
             </button>
           </div>
           <div *ngIf="disabledFirst">
-            <button class="page-link" [disabled]="disabledFirst">
+            <button class="page-link bg-paginator" [disabled]="disabledFirst">
               <fa-icon [icon]="ban"></fa-icon>
             </button>
           </div>
         </li>
         <div *ngFor="let index of indices">
           <li class="page-item" [ngClass]="{'active': index == currentPage}">
-            <button class="page-link" 
+            <button class="page-link bg-paginator" 
                    (click)="setPageByIndex(index)">{{index + 1}}
             </button>
           </li>
         </div>
         <li class="page-item">
           <div *ngIf="!disabledLast">
-            <button class="page-link" (click)="paginate('next')" [disabled]="disabledLast">
+            <button class="page-link bg-paginator" (click)="paginate('next')" [disabled]="disabledLast">
               <fa-icon [icon]="right"></fa-icon>
             </button>
           </div>
           <div *ngIf="disabledLast">
-            <button class="page-link" [disabled]="disabledFirst">
+            <button class="page-link bg-paginator" [disabled]="disabledFirst">
               <fa-icon [icon]="ban"></fa-icon>
             </button>
           </div>
         </li>
         <li class="page-item">
-          <button class="page-link" (click)="setLastPage()">
+          <button class="page-link bg-paginator" (click)="setLastPage()">
             <fa-icon [icon]="last"></fa-icon>
           </button>
         </li>

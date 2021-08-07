@@ -19,6 +19,9 @@ export class CardsContainerComponent implements OnInit {
   @Input()
   showDescription?: boolean
 
+  @Input()
+  cardStyle: string
+
   @Output()
   searchEmitter: EventEmitter<Search>;
 
@@ -32,9 +35,10 @@ export class CardsContainerComponent implements OnInit {
     this.showToggle = false
     this.searchModel = new Search()
     this.searchEmitter = new EventEmitter();
+    this.cardStyle = ''
    }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   toggle() {
     if(this.showToggle) {

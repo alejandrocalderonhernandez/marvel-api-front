@@ -19,6 +19,7 @@ export class CharactersComponent implements OnInit {
   totalItems: number
   searchModel: Search
   filtered: boolean
+  itemName: string
 
   constructor(private service: CharactersService,
               private router: Router,
@@ -29,10 +30,12 @@ export class CharactersComponent implements OnInit {
     this.totalItems = 0
     this.startPage = 0
     this.searchModel = new Search()
+    this.itemName = ''
    }
 
 
   ngOnInit(): void {
+    this.itemName = this.service.getItemTypeName()
     this.searchModel.id = this.activatedRoute.snapshot.params.id;
     this.searchModel.itemType = this.activatedRoute.snapshot.params.itemType;
     if(this.searchModel.id !== undefined) {
@@ -49,7 +52,7 @@ export class CharactersComponent implements OnInit {
   }
 
   filter(event: any) {
-    this.router.navigate([event.itemType, event.id, this.service.getItemTypeName()])
+    this.router.navigate([event.itemType, event.id, this.itemName])
   }
 
   private getItems(offset: number, id?:number, item?: string): void {
@@ -68,7 +71,7 @@ export class CharactersComponent implements OnInit {
     this.service.findByPageAndItem(offset, environment.itemsPerFilter, searchModel).subscribe(r => { 
       this.response = r
       this.totalItems = r.total
-      setTimeout(() => { this.isLoading = false; }, 500);
+      setTimeout(() => { this.isLoading = false; }, 100);
    });
   }
 }

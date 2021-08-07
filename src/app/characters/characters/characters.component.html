@@ -1,6 +1,7 @@
 <app-cards-container [showDescription]="showDescription" 
                      [items]="response.items"
                      [isLoading]="isLoading"
+                     [cardStyle]="itemName"
                      (searchEmitter)="filter($event)">
 </app-cards-container>
 <app-paginator *ngIf="!filtered"
