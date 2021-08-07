@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { faTimes, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ItemType, Search } from '../../models/search.model';
 import { repeat, delay, map, startWith, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -10,7 +10,7 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./search.component.sass'],
 })
 
-export class SearchComponent implements AfterViewInit {
+export class SearchComponent implements AfterViewInit, OnDestroy {
 
   @Output()
   close: EventEmitter<void>
@@ -28,6 +28,7 @@ export class SearchComponent implements AfterViewInit {
   closeIcon: IconDefinition
   searchModel: Search
   itemTypes: Array<string>
+  filterSubscription?: Subscription
 
   constructor() { 
     this.close = new EventEmitter()
@@ -41,15 +42,17 @@ export class SearchComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const source = fromEvent<any>(this.inputSearch?.nativeElement, 'keyup')
+    this.filterSubscription = fromEvent<any>(this.inputSearch?.nativeElement, 'keyup')
     .pipe(
       map(event => event.target.value),
       startWith(''),
       debounceTime(400),
       distinctUntilChanged()
-    );
+    ).subscribe(text => (this.onFilter(text)))
+  }
 
-    source.subscribe(text => (this.onFilter(text)))
+  ngOnDestroy(): void {
+    this.filterSubscription?.unsubscribe()
   }
 
   onClose() {
