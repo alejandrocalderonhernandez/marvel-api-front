@@ -25,6 +25,9 @@ export class CardsContainerComponent implements OnInit {
   @Output()
   searchEmitter: EventEmitter<Search>;
 
+  @Output()
+  filterEmitter: EventEmitter<string>;
+
   searchIcon: IconDefinition
   showToggle:boolean;
   searchModel: Search
@@ -35,6 +38,7 @@ export class CardsContainerComponent implements OnInit {
     this.showToggle = false
     this.searchModel = new Search()
     this.searchEmitter = new EventEmitter();
+    this.filterEmitter = new EventEmitter();
     this.cardStyle = ''
    }
 
@@ -52,5 +56,9 @@ export class CardsContainerComponent implements OnInit {
     this.searchModel.id = event.id
     this.searchModel.itemType = event.itemType
     this.searchEmitter.emit(this.searchModel)
+  }
+
+  emitFilter(event: any): void {
+    this.filterEmitter.emit(event)
   }
 }

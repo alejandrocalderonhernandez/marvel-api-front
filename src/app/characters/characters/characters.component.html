@@ -1,9 +1,14 @@
+<div>
+    <pre>{{text}}</pre>
+</div>
 <app-cards-container [showDescription]="showDescription" 
                      [items]="response.items"
                      [isLoading]="isLoading"
                      [cardStyle]="itemName"
-                     (searchEmitter)="filter($event)">
+                     (searchEmitter)="search($event)"
+                     (filterEmitter)="filter($event)">
 </app-cards-container>
+
 <app-paginator *ngIf="!filtered"
                (page)="setNextPage($event)" 
                [totalItems]="totalItems">

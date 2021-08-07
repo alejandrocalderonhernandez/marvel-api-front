@@ -20,6 +20,7 @@ export class CharactersComponent implements OnInit {
   searchModel: Search
   filtered: boolean
   itemName: string
+  text: string
 
   constructor(private service: CharactersService,
               private router: Router,
@@ -31,6 +32,7 @@ export class CharactersComponent implements OnInit {
     this.startPage = 0
     this.searchModel = new Search()
     this.itemName = ''
+    this.text = ''
    }
 
 
@@ -51,8 +53,12 @@ export class CharactersComponent implements OnInit {
     this.getItems(page) 
   }
 
-  filter(event: any) {
+  search(event: any) {
     this.router.navigate([event.itemType, event.id, this.itemName])
+  }
+
+  filter(text: any): void {
+    this.text += text
   }
 
   private getItems(offset: number, id?:number, item?: string): void {
