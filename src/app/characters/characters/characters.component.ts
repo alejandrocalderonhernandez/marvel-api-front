@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Response } from 'src/app/shared/models/response.model';
 import { Search } from 'src/app/shared/models/search.model';
+import { FilterService } from 'src/app/shared/services/filter.service';
 import { environment } from 'src/environments/environment';
 import { CharactersService } from '../characters.service';
 
@@ -23,6 +24,7 @@ export class CharactersComponent implements OnInit {
   text: string
 
   constructor(private service: CharactersService,
+              private filterService: FilterService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.isLoading = true
@@ -41,11 +43,12 @@ export class CharactersComponent implements OnInit {
     this.searchModel.id = this.activatedRoute.snapshot.params.id;
     this.searchModel.itemType = this.activatedRoute.snapshot.params.itemType;
     if(this.searchModel.id !== undefined) {
-      this.getItemsFiltered(this.startPage, this.searchModel)
+      this.getItemsFilteredByItem(this.startPage, this.searchModel)
       this.filtered = true
     } else {
       this.getItems(this.startPage)
     }
+    this.filterService.textObservable.subscribe(text => this.filter(text));
   }
 
 
@@ -57,8 +60,13 @@ export class CharactersComponent implements OnInit {
     this.router.navigate([event.itemType, event.id, this.itemName])
   }
 
-  filter(text: any): void {
+  filter(text: string): void {
     this.text += text
+    if(text !== '' && text.length > 1) {
+      this.getItemsStartWith(0, text)
+    } else if(text === '') {
+      this.getItems(this.startPage)
+    }
   }
 
   private getItems(offset: number, id?:number, item?: string): void {
@@ -72,12 +80,22 @@ export class CharactersComponent implements OnInit {
      });
   }
 
-  private getItemsFiltered(offset: number, searchModel: Search): void {
+  private getItemsFilteredByItem(offset: number, searchModel: Search): void {
     this.isLoading = true
     this.service.findByPageAndItem(offset, environment.itemsPerFilter, searchModel).subscribe(r => { 
       this.response = r
       this.totalItems = r.total
       setTimeout(() => { this.isLoading = false; }, 100);
+   });
+  }
+
+
+  private getItemsStartWith(offset: number, startWith: string): void {
+    this.isLoading = true
+    this.service.findNameStartWith(offset, environment.itemsPerFilter, startWith).subscribe(r => { 
+      this.response = r
+      this.totalItems = r.total
+      this.isLoading = false
    });
   }
 }

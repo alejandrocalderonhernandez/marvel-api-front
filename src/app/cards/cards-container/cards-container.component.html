@@ -2,7 +2,8 @@
    <div *ngIf="showToggle">
       <app-search (searchEmitter)="emitSearch($event)" 
                   (filterEmitter)="emitFilter($event)"
-                  (close)="toggle()"></app-search>
+                  (close)="toggle()">
+      </app-search>
    </div>
 
    <div *ngIf="!showToggle">

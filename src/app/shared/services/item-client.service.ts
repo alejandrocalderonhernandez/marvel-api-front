@@ -6,25 +6,28 @@ import { Item } from '../models/item.model';
 import { Response } from '../models/response.model';
 import { Search } from '../models/search.model';
 
+// create builder for uris
 export abstract class ItemClientService {
 
-  protected timestampParamName: string;
-  protected apikeyParamName: string;
-  protected hashParamName: string;
-  protected offsetParamName: string;
-  protected limitParamName: string;
+  protected timestampParamName: string
+  protected apikeyParamName: string
+  protected hashParamName: string
+  protected offsetParamName: string
+  protected limitParamName: string
+  protected startWithParam: string
 
 
   constructor(protected client: HttpClient, protected resource: string) { 
-    this.timestampParamName = 'ts';
-    this.apikeyParamName = 'apikey';
-    this.hashParamName = 'hash';
-    this.offsetParamName = 'offset';
-    this.limitParamName = 'limit';
+    this.timestampParamName = 'ts'
+    this.apikeyParamName = 'apikey'
+    this.hashParamName = 'hash'
+    this.offsetParamName = 'offset'
+    this.limitParamName = 'limit'
+    this.startWithParam = 'nameStartsWith'
   }
 
   public findByPage(offset: number, limit: number): Observable<Response> {
-    const uri = `${environment.baseUrl}${this.resource}`;
+    const uri = `${environment.baseUrl}${this.resource}`
     const params = new HttpParams()
       .set(this.timestampParamName, environment.ts)
       .set(this.apikeyParamName, environment.publicApiKey)
@@ -50,6 +53,27 @@ export abstract class ItemClientService {
       .set(this.hashParamName, environment.hash)
       .set(this.offsetParamName, offset.toString())
       .set(this.limitParamName, limit.toString())
+    return this.client.get(uri, {params}).pipe(map((response: any) => {
+        return new Response(
+          response.status, 
+          response.data.offset,
+          response.data.limit,
+          response.data.total,
+          this.buildItems(response.data.results)
+        );
+     }));
+  }
+  
+  public findNameStartWith(offset: number, limit: number, startWith: string): Observable<Response> {
+    const uri = `${environment.baseUrl}${this.resource}`
+    const params = new HttpParams()
+      .set(this.timestampParamName, environment.ts)
+      .set(this.apikeyParamName, environment.publicApiKey)
+      .set(this.hashParamName, environment.hash)
+      .set(this.offsetParamName, offset.toString())
+      .set(this.limitParamName, limit.toString())
+      .set(this.startWithParam, startWith)
+
     return this.client.get(uri, {params}).pipe(map((response: any) => {
         return new Response(
           response.status, 

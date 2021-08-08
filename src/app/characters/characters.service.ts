@@ -35,6 +35,27 @@ export class CharactersService extends ItemClientService {
     }));
   }
 
+  public findNameStartWith(offset: number, limit: number, startWith: string): Observable<Response> {
+    const uri = `${environment.baseUrl}${this.resource}`
+    const params = new HttpParams()
+      .set(this.timestampParamName, environment.ts)
+      .set(this.apikeyParamName, environment.publicApiKey)
+      .set(this.hashParamName, environment.hash)
+      .set(this.offsetParamName, offset.toString())
+      .set(this.limitParamName, limit.toString())
+      .set(this.startWithParam, startWith)
+
+    return this.client.get(uri, {params}).pipe(map((response: any) => {
+        return new Response(
+          response.status, 
+          response.data.offset,
+          response.data.limit,
+          response.data.total,
+          this.buildCharacter(response.data.results)
+        );
+     }));
+  }
+
   private buildCharacter(data: any[]): Item[] {
     let items = new Array<Item>();
     data.forEach(d => {
