@@ -17,13 +17,19 @@ export abstract class ItemClientService {
   protected startWithParam: string
 
 
-  constructor(protected client: HttpClient, protected resource: string) { 
+  constructor(protected client: HttpClient, 
+              protected resource: string, 
+              protected alternativeStartWithParam: string) { 
+
     this.timestampParamName = 'ts'
     this.apikeyParamName = 'apikey'
     this.hashParamName = 'hash'
     this.offsetParamName = 'offset'
     this.limitParamName = 'limit'
-    this.startWithParam = 'nameStartsWith'
+    this.startWithParam = alternativeStartWithParam
+
+
+    console.log('param: ' + this.startWithParam)
   }
 
   public findByPage(offset: number, limit: number): Observable<Response> {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Response } from 'src/app/shared/models/response.model';
 import { Search } from 'src/app/shared/models/search.model';
+import { FilterService } from 'src/app/shared/services/filter.service';
 import { environment } from 'src/environments/environment';
 import { ComicsService } from '../comics.service';
 
@@ -12,70 +13,78 @@ import { ComicsService } from '../comics.service';
 })
 export class ComicsComponent implements OnInit {
 
-  isLoading: boolean
   response!: Response
+
+  isLoading: boolean
   showDescription: boolean
   startPage: number
-  totalItems: number
   searchModel: Search
-  filtered: boolean
   itemName: string
+  searchText: string
+  fromOtherItem: boolean
 
-  constructor(private service: ComicsService,
-    private router: Router,
+  constructor(private comicsService: ComicsService,
+              private filterService: FilterService,
+              private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.isLoading = true
     this.showDescription = true
-    this.filtered = false
-    this.totalItems = 0
     this.startPage = 0
     this.searchModel = new Search();
     this.itemName = ''
+    this.searchText = ''
+    this.fromOtherItem = false
   } 
 
-  ngOnInit(): void {
-    this.itemName = this.service.getItemTypeName()
+  ngOnInit() {
+    this.itemName = this.comicsService.getItemTypeName()
     this.searchModel.id = this.activatedRoute.snapshot.params.id;
     this.searchModel.itemType = this.activatedRoute.snapshot.params.itemType;
+    this.filterService.textObservable.subscribe(text => this.filter(text))
     if(this.searchModel.id !== undefined) {
-      this.getItemsFiltered(this.startPage, this.searchModel)
-      this.filtered = true
-    } else {
+      this.getItemsFilteredByItem(this.startPage, this.searchModel)
+      this.fromOtherItem = true
+    } 
+  }
+
+  setNextPage(page: any) {   
+    this.getItems(page) 
+  }
+
+  search(event: any) {
+    this.router.navigate([event.itemType, event.id, this.itemName])
+  }
+
+  filter(text: string) {
+    this.searchText += text
+    if(text !== '' && text.length > 1) {
+      this.getItemsStartWith(0, text)
+    } else if(text === '' && this.fromOtherItem) {
       this.getItems(this.startPage)
     }
   }
 
-  setNextPage(page: any): void {
-    if(this.searchModel.id !== undefined) {
-      this.getItemsFiltered(page, this.searchModel)
-    } else {
-      this.getItems(page) 
-    }
-
-  }
-
-  filter(event: any) {
-    this.router.navigate([event.itemType, event.id, this.itemName])
-  }
-
-
-  private getItems(offset: number): void {
+  private getItems(offset: number) {
     this.isLoading = true
-    this.service.findByPage(offset, environment.itemsPerPage).subscribe(r => { 
+    this.comicsService.findByPage(offset, environment.itemsPerPage).subscribe(r => { 
       this.response = r
-      if(this.totalItems === 0) {
-        this.totalItems = r.total
-      }
-      setTimeout(() => { this.isLoading = false; }, 500);
+      setTimeout(() => { this.isLoading = false; }, 200);
    });
   }
 
-  private getItemsFiltered(offset: number, searchModel: Search): void {
+  private getItemsFilteredByItem(offset: number, searchModel: Search): void {
     this.isLoading = true
-    this.service.findByPageAndItem(offset, environment.itemsPerFilter, searchModel).subscribe(r => { 
+    this.comicsService.findByPageAndItem(offset, environment.itemsPerFilter, searchModel).subscribe(r => { 
       this.response = r
-      this.totalItems = r.total
       setTimeout(() => { this.isLoading = false; }, 100);
+   });
+  }
+
+  private getItemsStartWith(offset: number, startWith: string) {
+    this.isLoading = true
+    this.comicsService.findNameStartWith(offset, environment.itemsPerFilter, startWith).subscribe(r => { 
+      this.response = r
+      this.isLoading = false
    });
   }
 

@@ -14,7 +14,7 @@ import { Search } from '../shared/models/search.model';
 export class CreatorsService extends ItemClientService{
 
   constructor(protected client: HttpClient) {
-    super(client, 'creators')
+    super(client, 'creators', 'nameStartsWith')
    }
 
    public findByPage(offset: number, limit: number): Observable<Response> {

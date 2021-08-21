@@ -8,7 +8,7 @@ import { ItemClientService } from '../shared/services/item-client.service';
 export class ComicsService extends ItemClientService {
 
   constructor (client: HttpClient) {
-    super(client, 'comics');
+    super(client, 'comics', 'titleStartsWith');
   }
  
   public getItemTypeName(): string {

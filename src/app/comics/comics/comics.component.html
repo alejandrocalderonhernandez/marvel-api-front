@@ -2,9 +2,9 @@
                      [items]="response.items"
                      [isLoading]="isLoading"
                      [cardStyle]="itemName"
-                     (searchEmitter)="filter($event)">
+                     (searchEmitter)="search($event)">
 </app-cards-container>
-<app-paginator *ngIf="!filtered"
+<app-paginator *ngIf="!fromOtherItem"
                (page)="setNextPage($event)" 
-               [totalItems]="totalItems">
+               [totalItems]="response.total">
 </app-paginator>

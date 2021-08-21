@@ -13,7 +13,7 @@ import { ItemClientService } from '../shared/services/item-client.service';
 export class CharactersService extends ItemClientService {
 
   constructor(client: HttpClient) {
-    super(client, 'characters');
+    super(client, 'characters', 'nameStartsWith');
    }
 
    public findByPage(offset: number, limit: number): Observable<Response> {
