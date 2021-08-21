@@ -44,7 +44,9 @@ export class ComicsComponent implements OnInit {
     if(this.searchModel.id !== undefined) {
       this.getItemsFilteredByItem(this.startPage, this.searchModel)
       this.fromOtherItem = true
-    } 
+    } else {
+      this.getItems(this.startPage)
+    }
   }
 
   setNextPage(page: any) {   
@@ -59,6 +61,7 @@ export class ComicsComponent implements OnInit {
     this.searchText += text
     if(text !== '' && text.length > 1) {
       this.getItemsStartWith(0, text)
+      this.fromOtherItem = false
     } else if(text === '' && this.fromOtherItem) {
       this.getItems(this.startPage)
     }

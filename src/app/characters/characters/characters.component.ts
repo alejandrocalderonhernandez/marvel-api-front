@@ -45,6 +45,8 @@ export class CharactersComponent implements OnInit {
     if(this.searchModel.id !== undefined) {
       this.getItemsFilteredByItem(this.startPage, this.searchModel)
       this.fromOtherItem = true
+    } else {
+      this.getItems(this.startPage)
     }
   }
 
