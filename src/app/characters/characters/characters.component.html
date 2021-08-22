@@ -2,6 +2,7 @@
                      [items]="response.items"
                      [isLoading]="isLoading"
                      [cardStyle]="itemName"
+                     [totalItems]="response.total"
                      (searchEmitter)="search($event)">
 </app-cards-container>
 

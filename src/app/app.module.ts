@@ -13,6 +13,10 @@ import { SeriesModule } from './series/series.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +33,9 @@ import { FormsModule } from '@angular/forms';
     ComicsModule,
     CreatorsModule,
     EventsModule,
-    SeriesModule
+    SeriesModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 import { Item } from 'src/app/shared/models/item.model';
 import { Search } from 'src/app/shared/models/search.model';
 
@@ -21,6 +22,9 @@ export class CardsContainerComponent implements OnInit {
 
   @Input()
   cardStyle: string
+  
+  @Input()
+  totalItems: number = 0
 
   @Output()
   searchEmitter: EventEmitter<Search>;
@@ -32,7 +36,7 @@ export class CardsContainerComponent implements OnInit {
   showToggle:boolean;
   searchModel: Search
 
-  constructor() {
+  constructor( private toastr: ToastrService) {
     this.isLoading = true
     this.searchIcon = faSearch
     this.showToggle = false
@@ -42,7 +46,13 @@ export class CardsContainerComponent implements OnInit {
     this.cardStyle = ''
    }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if(this.totalItems === 0) {
+      this.toastr.warning('No matches')
+    } else {
+      this.toastr.info(`${this.totalItems} found`)
+    }
+  }
 
   toggle() {
     if(this.showToggle) {
