@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Response } from 'src/app/shared/models/response.model';
 import { Search } from 'src/app/shared/models/search.model';
 import { FilterService } from 'src/app/shared/services/filter.service';
@@ -11,7 +12,7 @@ import { CharactersService } from '../characters.service';
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.sass']
 })
-export class CharactersComponent implements OnInit {
+export class CharactersComponent implements OnInit, OnDestroy {
 
   response!: Response
 
@@ -22,6 +23,7 @@ export class CharactersComponent implements OnInit {
   itemName: string
   searchText: string
   fromOtherItem: boolean
+  filterSubscription?: Subscription
 
   constructor(private characterService: CharactersService,
               private filterService: FilterService,
@@ -39,9 +41,15 @@ export class CharactersComponent implements OnInit {
 
   ngOnInit() {
     this.itemName = this.characterService.getItemTypeName()
-    this.searchModel.id = this.activatedRoute.snapshot.params.id;
-    this.searchModel.itemType = this.activatedRoute.snapshot.params.itemType;
-    this.filterService.textObservable.subscribe(text => this.filter(text))
+    this.searchModel.id = this.activatedRoute.snapshot.params.id
+    this.searchModel.itemType = this.activatedRoute.snapshot.params.itemType
+    this.filterService.emitEnableInput(true)
+    this.filterSubscription = this.filterService.textObservable.subscribe(text => {
+      this.filter(text)
+      if(text.length === 0) {
+        this.getItems(this.startPage)
+      }
+    })
     if(this.searchModel.id !== undefined) {
       this.getItemsFilteredByItem(this.startPage, this.searchModel)
       this.fromOtherItem = true
@@ -66,14 +74,14 @@ export class CharactersComponent implements OnInit {
     } else if(text === '' && this.fromOtherItem) {
       this.getItems(this.startPage)
     }
-  }
+  } 
 
   private getItems(offset: number) {
     this.isLoading = true
       this.characterService.findByPage(offset, environment.itemsPerPage).subscribe(r => { 
         this.response = r
         setTimeout(() => { this.isLoading = false; }, 200);
-     });
+     })
   }
 
   private getItemsFilteredByItem(offset: number, searchModel: Search) {
@@ -81,7 +89,7 @@ export class CharactersComponent implements OnInit {
     this.characterService.findByPageAndItem(offset, environment.itemsPerFilter, searchModel).subscribe(r => { 
       this.response = r
       setTimeout(() => { this.isLoading = false; }, 100);
-   });
+   })
   }
 
   private getItemsStartWith(offset: number, startWith: string) {
@@ -89,6 +97,11 @@ export class CharactersComponent implements OnInit {
     this.characterService.findNameStartWith(offset, environment.itemsPerFilter, startWith).subscribe(r => { 
       this.response = r
       this.isLoading = false
-   });
+   })
+  }
+
+  ngOnDestroy(): void {
+    this.filterService.emitEnableInput(false)
+    this.filterSubscription?.unsubscribe()
   }
 }

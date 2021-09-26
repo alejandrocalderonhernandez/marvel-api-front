@@ -11,15 +11,19 @@ import { FilterService } from '../../services/filter.service';
 })
 export class NavbarComponent implements AfterViewInit, OnInit {
 
-  constructor(private service: FilterService) { }
-
   @ViewChild('searchInput') 
   inputSearch?: ElementRef;
 
   filterSubscription?: Subscription
+  enableInput: boolean
+
+  constructor(private service: FilterService) { 
+    this.enableInput = false
+  }
 
   ngOnInit() {
     this.service.textObservable.subscribe();
+    this.service.enableInputObservable.subscribe(e => this.enableInput = e)
   }
 
   ngAfterViewInit(): void {

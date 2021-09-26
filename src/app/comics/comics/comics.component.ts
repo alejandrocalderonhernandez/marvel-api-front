@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Response } from 'src/app/shared/models/response.model';
 import { Search } from 'src/app/shared/models/search.model';
 import { FilterService } from 'src/app/shared/services/filter.service';
@@ -11,7 +12,7 @@ import { ComicsService } from '../comics.service';
   templateUrl: './comics.component.html',
   styleUrls: ['./comics.component.sass']
 })
-export class ComicsComponent implements OnInit {
+export class ComicsComponent implements OnInit, OnDestroy {
 
   response!: Response
 
@@ -22,6 +23,7 @@ export class ComicsComponent implements OnInit {
   itemName: string
   searchText: string
   fromOtherItem: boolean
+  filterSubscription?: Subscription
 
   constructor(private comicsService: ComicsService,
               private filterService: FilterService,
@@ -38,9 +40,15 @@ export class ComicsComponent implements OnInit {
 
   ngOnInit() {
     this.itemName = this.comicsService.getItemTypeName()
-    this.searchModel.id = this.activatedRoute.snapshot.params.id;
-    this.searchModel.itemType = this.activatedRoute.snapshot.params.itemType;
-    this.filterService.textObservable.subscribe(text => this.filter(text))
+    this.searchModel.id = this.activatedRoute.snapshot.params.id
+    this.searchModel.itemType = this.activatedRoute.snapshot.params.itemType
+    this.filterService.emitEnableInput(true)
+    this.filterSubscription = this.filterService.textObservable.subscribe(text => {
+      this.filter(text)
+      if(text.length === 0) {
+        this.getItems(this.startPage)
+      }
+    })
     if(this.searchModel.id !== undefined) {
       this.getItemsFilteredByItem(this.startPage, this.searchModel)
       this.fromOtherItem = true
@@ -91,4 +99,8 @@ export class ComicsComponent implements OnInit {
    });
   }
 
+  ngOnDestroy(): void {
+    this.filterService.emitEnableInput(false)
+    this.filterSubscription?.unsubscribe()
+  }
 }

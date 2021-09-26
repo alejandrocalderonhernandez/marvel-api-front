@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Item } from 'src/app/shared/models/item.model';
@@ -36,7 +37,7 @@ export class CardsContainerComponent implements OnInit {
   showToggle:boolean;
   searchModel: Search
 
-  constructor( private toastr: ToastrService) {
+  constructor(private toastr: ToastrService, private router: Router) {
     this.isLoading = true
     this.searchIcon = faSearch
     this.showToggle = false
@@ -49,6 +50,7 @@ export class CardsContainerComponent implements OnInit {
   ngOnInit(): void {
     if(this.totalItems === 0) {
       this.toastr.warning('No matches')
+      this.router.navigate(["/"])
     } else {
       this.toastr.info(`${this.totalItems} found`)
     }
