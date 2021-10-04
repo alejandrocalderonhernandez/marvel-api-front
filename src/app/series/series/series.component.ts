@@ -27,7 +27,7 @@ export class SeriesComponent implements OnInit, OnDestroy {
   filterSubscription?: Subscription
 
   constructor(private service: SeriesService,
-    private filterService: FilterService,
+              private filterService: FilterService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
     this.isLoading = true
@@ -38,7 +38,7 @@ export class SeriesComponent implements OnInit, OnDestroy {
     this.searchModel = new Search()
     this.itemName = '';
     this.searchText = ''
-    this.fromOtherItem = false
+    this.fromOtherItem = false 
    }
 
    ngOnInit(): void {

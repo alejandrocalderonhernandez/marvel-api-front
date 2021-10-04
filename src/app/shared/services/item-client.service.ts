@@ -27,9 +27,6 @@ export abstract class ItemClientService {
     this.offsetParamName = 'offset'
     this.limitParamName = 'limit'
     this.startWithParam = alternativeStartWithParam
-
-
-    console.log('param: ' + this.startWithParam)
   }
 
   public findByPage(offset: number, limit: number): Observable<Response> {
@@ -92,22 +89,22 @@ export abstract class ItemClientService {
   }
 
   protected buildItems(data: any[]): Item[] {
-    let items = new Array<Item>();
+    let items = new Array<Item>()
     data.forEach(d => {
       items.push(
         new Item(
           d.id, 
           d.title, 
           d.description, 
-          this.buildImg(d.thumbnail)));
+          this.buildImg(d.thumbnail)))
     })
-    return items;
+    return items
   }
 
   protected buildImg(thumbnail: any): string {
-    const url = thumbnail.path;
-    const extension = thumbnail.extension;
-    return `${url}.${extension}`;
+    const url = thumbnail.path
+    const extension = thumbnail.extension
+    return `${url}.${extension}`
   }
 
   public abstract getItemTypeName() : string

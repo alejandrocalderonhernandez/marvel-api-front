@@ -14,6 +14,8 @@ const routes: Routes = [
   {path: 'events/:id/:itemType', loadChildren: () => import('./events/events.module').then(m => m.EventsModule)},
   {path: 'series', loadChildren: () => import('./series/series.module').then(m => m.SeriesModule)},
   {path: 'series/:id/:itemType', loadChildren: () => import('./series/series.module').then(m => m.SeriesModule)},
+  {path: 'stories', loadChildren: () => import('./stories/stories.module').then(m => m.StoriesModule)},
+  {path: 'stories/:id/:itemType', loadChildren: () => import('./stories/stories.module').then(m => m.StoriesModule)},
   {path: '**', redirectTo: ''}
 ];
 

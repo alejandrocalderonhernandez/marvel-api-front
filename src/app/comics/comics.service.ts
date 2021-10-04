@@ -12,7 +12,7 @@ export class ComicsService extends ItemClientService {
   }
  
   public getItemTypeName(): string {
-    return'comics'
+    return 'comics'
   }
 }
 

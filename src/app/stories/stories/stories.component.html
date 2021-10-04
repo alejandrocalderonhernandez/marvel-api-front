@@ -1,0 +1,12 @@
+<app-cards-container [showDescription]="showDescription" 
+                     [items]="response.items"
+                     [isLoading]="isLoading"
+                     [cardStyle]="itemName"
+                     [totalItems]="response.total"
+                     (searchEmitter)="search($event)">
+</app-cards-container>
+
+<app-paginator *ngIf="!fromOtherItem"
+               (page)="setNextPage($event)" 
+               [totalItems]="response.total">
+</app-paginator>

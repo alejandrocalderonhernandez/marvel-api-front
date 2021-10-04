@@ -13,7 +13,7 @@ export class SearchMenuComponent implements OnInit {
 
   constructor(private router:Router) {
     this.tittle = 'Choose a option'
-    this.menu = ['Characters', 'Comics', 'Creators', 'Events', 'Series']
+    this.menu = ['Characters', 'Comics', 'Creators', 'Events', 'Series', 'Stories']
    }
 
   ngOnInit(): void {}
