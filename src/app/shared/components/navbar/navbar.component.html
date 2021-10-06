@@ -2,12 +2,12 @@
   <a class="navbar-brand" href="#">
     <img class="img-nav" src="assets/img/icon.png" alt="">
   </a>
-  <div *ngIf="enableInput">
     <form class="form-inline">
       <input #searchInput 
              class="form-control" 
              type="search" 
-             placeholder="Search">
+             [placeholder]="placeholder"
+             [disabled]="!enableInput"
+             [ngClass]="{'disabled-search': !enableInput}">
     </form>
-  </div>
 </nav> 

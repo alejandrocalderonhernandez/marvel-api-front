@@ -1,5 +1,4 @@
 import { Component, ElementRef, AfterViewInit, ViewChild, OnInit } from '@angular/core';import { fromEvent, Subscription } from 'rxjs';
-;
 import { map, startWith, debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
 import { FilterService } from '../../services/filter.service';
 
@@ -16,14 +15,21 @@ export class NavbarComponent implements AfterViewInit, OnInit {
 
   filterSubscription?: Subscription
   enableInput: boolean
+  placeholder: string
 
   constructor(private service: FilterService) { 
     this.enableInput = false
+    this.placeholder='Disabled ✗'
   }
 
   ngOnInit() {
     this.service.textObservable.subscribe();
-    this.service.enableInputObservable.subscribe(e => this.enableInput = e)
+    this.service.enableInputObservable.subscribe(e => {
+      this.enableInput = e 
+      if(e){
+        this.placeholder='Search'
+      }
+    })
   }
 
   ngAfterViewInit(): void {
