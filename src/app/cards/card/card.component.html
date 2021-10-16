@@ -11,6 +11,8 @@
       <div *ngIf="showDescription"class="text-decription">
         <p class="card-text">{{item.description}}</p>
       </div>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <div *ngIf="item.oficialLink !== ''">
+        <a [href]="item.oficialLink" class="btn btn-primary">Go to the official page</a>
+      </div>
     </div>
 </div>

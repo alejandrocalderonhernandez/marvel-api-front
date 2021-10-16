@@ -64,7 +64,8 @@ export class CreatorsService extends ItemClientService{
           d.id, 
           d.firstName, 
           d.fullName, 
-          this.buildImg(d.thumbnail)));
+          this.buildImg(d.thumbnail),
+          this.buildOfficialLink(d.urls)));
     })
     return items;
   }

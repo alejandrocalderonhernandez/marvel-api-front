@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { of } from 'rxjs';
 import { Item } from 'src/app/shared/models/item.model';
 
 @Component({
@@ -16,14 +15,17 @@ export class CardComponent implements OnInit {
   showDescription?: boolean
 
   @Input() 
-  public item!: Item
+  item!: Item
 
-
+  
   constructor() {
     this.cardStyle = 'default'
   }
 
   ngOnInit(): void {
+    if (this.item.oficialLink === '/') {
+
+    }
   }
 
 }

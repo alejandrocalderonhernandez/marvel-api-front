@@ -96,7 +96,8 @@ export abstract class ItemClientService {
           d.id, 
           d.title, 
           d.description, 
-          this.buildImg(d.thumbnail)))
+          this.buildImg(d.thumbnail),
+          this.buildOfficialLink(d.urls)))
     })
     return items
   }
@@ -105,6 +106,16 @@ export abstract class ItemClientService {
     const url = thumbnail.path
     const extension = thumbnail.extension
     return `${url}.${extension}`
+  }
+
+  protected buildOfficialLink(urls: any): string {
+    if(urls !== undefined) {
+      const links = urls as Array<any>
+      const link = urls[0]
+      return link.url
+    } else {
+      return ""
+    }
   }
 
   public abstract getItemTypeName() : string

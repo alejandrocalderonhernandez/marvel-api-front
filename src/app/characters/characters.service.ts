@@ -64,7 +64,8 @@ export class CharactersService extends ItemClientService {
           d.id, 
           d.name, 
           d.description, 
-          this.buildImg(d.thumbnail)));
+          this.buildImg(d.thumbnail),
+          this.buildOfficialLink(d.urls)));
     })
     return items;
   }

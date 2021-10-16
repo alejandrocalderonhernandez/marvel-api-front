@@ -20,7 +20,8 @@ export class StoriesService extends ItemClientService {
           d.id, 
           '', 
           d.title, 
-          'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg'))
+          'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg',
+          ''))
     })
     return items
   }
